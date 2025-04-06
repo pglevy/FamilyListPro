@@ -34,12 +34,13 @@ function useHashState<T>(initialState: T, key: string): [T, (value: T) => void] 
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       
-      // Only include the active tab in the URL
-      const activeTab = params.get('tab') || 'tobuy';
+      // Preserve the existing tab parameter
+      // Don't set default here, just preserve what's already there
       
       // Update the hash state
       params.set(key, encodeURIComponent(JSON.stringify(state)));
-      params.set('tab', activeTab);
+      
+      // Don't modify the tab parameter here, to avoid conflicts
       
       window.location.hash = params.toString();
     } catch (error) {

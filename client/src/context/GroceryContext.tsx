@@ -37,9 +37,24 @@ export const GroceryProvider: React.FC<GroceryProviderProps> = ({ children }) =>
   const [items, setItems] = useHashState<GroceryList>([], 'groceryItems');
   const [searchTerm, setSearchTerm] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('all');
-  const [activeTab, setActiveTab] = useState<'tobuy' | 'favorites' | 'neverbuy'>('tobuy');
+  const [activeTab, setActiveTabInternal] = useState<'tobuy' | 'favorites' | 'neverbuy'>('tobuy');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<GroceryItem | null>(null);
+  
+  // Create a wrapper for setActiveTab that updates the URL hash
+  const setActiveTab = (tab: 'tobuy' | 'favorites' | 'neverbuy') => {
+    setActiveTabInternal(tab);
+    
+    try {
+      // Update URL hash with the tab parameter
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      params.set('tab', tab);
+      window.location.hash = params.toString();
+    } catch (error) {
+      console.error('Error updating tab in hash:', error);
+    }
+  };
 
   // Add a new item to the list
   const addItem = (item: Omit<GroceryItem, 'id'>) => {

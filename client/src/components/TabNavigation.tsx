@@ -5,8 +5,8 @@ const TabNavigation: React.FC = () => {
   const { activeTab, setActiveTab } = useGrocery();
 
   const handleTabClick = (tab: 'tobuy' | 'favorites' | 'neverbuy') => {
+    // Use our setActiveTab function which updates the URL hash correctly
     setActiveTab(tab);
-    window.location.hash = tab;
   };
 
   return (

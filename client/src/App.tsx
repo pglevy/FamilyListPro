@@ -19,11 +19,14 @@ function AppContent() {
   useEffect(() => {
     // Initialize the app based on URL hash
     const initFromHash = () => {
-      const hash = window.location.hash.substring(1) || 'tobuy';
-      if (hash === 'tobuy' || hash === 'favorites' || hash === 'neverbuy') {
-        setActiveTab(hash as 'tobuy' | 'favorites' | 'neverbuy');
+      const hash = window.location.hash.substring(1);
+      const params = new URLSearchParams(hash);
+      const tabParam = params.get('tab') || 'tobuy';
+      
+      if (tabParam === 'tobuy' || tabParam === 'favorites' || tabParam === 'neverbuy') {
+        setActiveTab(tabParam as 'tobuy' | 'favorites' | 'neverbuy');
       } else {
-        // If hash isn't one of our known tabs, use the default
+        // If tab param isn't one of our known tabs, use the default
         setActiveTab('tobuy');
       }
     };

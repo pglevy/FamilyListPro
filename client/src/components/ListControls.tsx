@@ -1,6 +1,7 @@
 import React from 'react';
 import { useGrocery } from '@/context/GroceryContext';
 import { CATEGORIES } from '@/lib/constants';
+import ImportMarkdown from './ImportMarkdown';
 
 const ListControls: React.FC = () => {
   const { 
@@ -8,8 +9,11 @@ const ListControls: React.FC = () => {
     setSearchTerm, 
     categoryFilter, 
     setCategoryFilter, 
-    setIsModalOpen 
+    setIsModalOpen,
+    activeTab
   } = useGrocery();
+
+  const showImportButton = activeTab === 'favorites';
 
   return (
     <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -27,7 +31,7 @@ const ListControls: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
         <select 
           className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2ECC71] focus:border-transparent bg-white"
           value={categoryFilter}
@@ -42,6 +46,9 @@ const ListControls: React.FC = () => {
           <option value={CATEGORIES.PANTRY}>Pantry</option>
           <option value={CATEGORIES.HOUSEHOLD}>Household</option>
         </select>
+        
+        {showImportButton && <ImportMarkdown />}
+        
         <button 
           className="px-3 py-2 bg-[#2ECC71] text-white rounded-lg font-medium hover:bg-opacity-90 transition"
           onClick={() => setIsModalOpen(true)}

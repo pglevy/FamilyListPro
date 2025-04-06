@@ -8,6 +8,7 @@ import { Category, ListType } from '@shared/schema';
 interface GroceryContextType {
   items: GroceryList;
   addItem: (item: Omit<GroceryItem, 'id'>) => void;
+  addItems: (items: Omit<GroceryItem, 'id'>[]) => void;
   updateItem: (item: GroceryItem) => void;
   removeItem: (id: string) => void;
   togglePurchased: (id: string) => void;
@@ -48,6 +49,19 @@ export const GroceryProvider: React.FC<GroceryProviderProps> = ({ children }) =>
       purchased: item.purchased || false
     };
     setItems([...items, newItem]);
+  };
+  
+  // Add multiple items at once
+  const addItems = (newItems: Omit<GroceryItem, 'id'>[]) => {
+    if (!newItems.length) return;
+    
+    const itemsToAdd = newItems.map(item => ({
+      ...item,
+      id: nanoid(),
+      purchased: item.purchased || false
+    }));
+    
+    setItems([...items, ...itemsToAdd]);
   };
 
   // Update an existing item
@@ -100,6 +114,7 @@ export const GroceryProvider: React.FC<GroceryProviderProps> = ({ children }) =>
   const value = useMemo(() => ({
     items,
     addItem,
+    addItems,
     updateItem,
     removeItem,
     togglePurchased,

@@ -11,7 +11,7 @@ const ImportMarkdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [markdownContent, setMarkdownContent] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const { addItem } = useGrocery();
+  const { addItems } = useGrocery();
   const { toast } = useToast();
 
   const handleImport = () => {
@@ -21,16 +21,17 @@ const ImportMarkdown: React.FC = () => {
       // Parse markdown content into grocery items
       const items = parseMarkdownToItems(markdownContent);
       
-      // Add each item to the favorites list
-      items.forEach(item => {
-        addItem({
-          name: item.name,
-          category: item.category,
-          listType: LIST_TYPES.FAVORITES,
-          note: item.note,
-          purchased: false
-        });
-      });
+      // Create new items to add
+      const itemsToAdd = items.map(item => ({
+        name: item.name,
+        category: item.category,
+        listType: LIST_TYPES.FAVORITES,
+        note: item.note,
+        purchased: false
+      }));
+      
+      // Add all items to the favorites list at once
+      addItems(itemsToAdd);
       
       toast({
         title: "Import Successful",
@@ -55,20 +56,16 @@ const ImportMarkdown: React.FC = () => {
     const lines = markdown.split('\n').filter(line => line.trim() !== '');
     const items: Array<{ name: string, category: Category, note?: string }> = [];
     
-    let currentCategory = CATEGORIES.PANTRY; // Default to 'pantry' category
+    let currentCategory: Category = 'pantry'; // Default to 'pantry' category
     
     for (const line of lines) {
       // Check if line is a heading (category)
       if (line.startsWith('#')) {
         const categoryName = line.replace(/^#+\s*/, '').trim().toLowerCase();
         
-        // Validate category exists by checking if the categoryName is a value in CATEGORIES
-        const matchedCategory = Object.entries(CATEGORIES).find(
-          ([_, value]) => value === categoryName
-        );
-        
-        if (matchedCategory) {
-          currentCategory = matchedCategory[1];
+        // Check if the category name is one of the valid categories
+        if (Object.values(CATEGORIES).includes(categoryName as Category)) {
+          currentCategory = categoryName as Category;
         }
         continue;
       }

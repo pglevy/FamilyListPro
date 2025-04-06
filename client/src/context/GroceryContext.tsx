@@ -12,6 +12,7 @@ interface GroceryContextType {
   removeItem: (id: string) => void;
   togglePurchased: (id: string) => void;
   moveToList: (id: string, listType: ListType) => void;
+  addToCart: (id: string) => void; // New function to add to cart without changing list type
   clearPurchased: () => void;
   searchTerm: string;
   setSearchTerm: (term: string) => void;
@@ -72,6 +73,24 @@ export const GroceryProvider: React.FC<GroceryProviderProps> = ({ children }) =>
       item.id === id ? { ...item, listType, purchased: false } : item
     ));
   };
+  
+  // Add an item to the cart without changing its list type
+  const addToCart = (id: string) => {
+    // Find the item by ID
+    const itemToAdd = items.find(item => item.id === id);
+    if (!itemToAdd) return;
+    
+    // Create a new item with the same properties but a new ID
+    const newItem: GroceryItem = {
+      ...itemToAdd,
+      id: nanoid(),
+      listType: LIST_TYPES.TO_BUY,
+      purchased: false
+    };
+    
+    // Add the new item to the list
+    setItems([...items, newItem]);
+  };
 
   // Clear all purchased items
   const clearPurchased = () => {
@@ -85,6 +104,7 @@ export const GroceryProvider: React.FC<GroceryProviderProps> = ({ children }) =>
     removeItem,
     togglePurchased,
     moveToList,
+    addToCart,
     clearPurchased,
     searchTerm,
     setSearchTerm,

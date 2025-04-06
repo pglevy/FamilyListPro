@@ -9,10 +9,10 @@ interface FavoriteItemProps {
 }
 
 const FavoriteItem: React.FC<FavoriteItemProps> = ({ item }) => {
-  const { moveToList, setEditingItem, setIsModalOpen } = useGrocery();
+  const { addToCart, setEditingItem, setIsModalOpen } = useGrocery();
 
   const handleAddToToBuy = () => {
-    moveToList(item.id, LIST_TYPES.TO_BUY);
+    addToCart(item.id);
   };
 
   const handleEdit = () => {
@@ -49,7 +49,7 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({ item }) => {
         className="w-full py-2 bg-[#2ECC71] bg-opacity-10 text-[#2ECC71] rounded-lg font-medium hover:bg-opacity-20 transition flex items-center justify-center"
         onClick={handleAddToToBuy}
       >
-        <i className="fas fa-cart-plus mr-2"></i> Add to Shopping List
+        <i className="fas fa-cart-plus mr-2"></i> Add to Cart
       </button>
     </div>
   );

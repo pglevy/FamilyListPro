@@ -7,7 +7,6 @@ import { Category } from '@shared/schema';
 const ToBuyList: React.FC = () => {
   const { items, searchTerm, categoryFilter, clearPurchased } = useGrocery();
   const [collapsedCategories, setCollapsedCategories] = useState<string[]>([]);
-  const [isPurchasedCollapsed, setIsPurchasedCollapsed] = useState(true);
 
   // Filter to buy items
   const toBuyItems = useMemo(() => {
@@ -18,13 +17,14 @@ const ToBuyList: React.FC = () => {
     );
   }, [items, searchTerm, categoryFilter]);
 
-  // Group items by category
+  // Group items by category (including purchased items)
   const itemsByCategory = useMemo(() => {
     const groupedItems: Record<string, typeof toBuyItems> = {};
     const categories = Array.from(new Set(toBuyItems.map(item => item.category)));
     
     categories.forEach(category => {
-      const categoryItems = toBuyItems.filter(item => item.category === category && !item.purchased);
+      // Include purchased items in the category groups
+      const categoryItems = toBuyItems.filter(item => item.category === category);
       if (categoryItems.length > 0) {
         groupedItems[category] = categoryItems;
       }
@@ -44,10 +44,6 @@ const ToBuyList: React.FC = () => {
     } else {
       setCollapsedCategories([...collapsedCategories, category]);
     }
-  };
-
-  const togglePurchasedItems = () => {
-    setIsPurchasedCollapsed(!isPurchasedCollapsed);
   };
 
   return (
@@ -80,39 +76,28 @@ const ToBuyList: React.FC = () => {
         </div>
       ))}
 
-      {/* Purchased Items Section */}
+      {/* Purchased Items Summary */}
       {purchasedItems.length > 0 && (
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-3 px-2">
-            <h2 className="text-lg font-semibold text-gray-400 flex items-center">
-              <span className="inline-flex items-center justify-center w-8 h-8 mr-2 bg-gray-100 rounded-full">
-                <i className="fas fa-check text-gray-500"></i>
-              </span>
-              Purchased ({purchasedItems.length})
-            </h2>
-            <div className="flex gap-2">
+        <div className="mb-6 mt-8">
+          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-semibold text-gray-600 flex items-center">
+                <span className="inline-flex items-center justify-center w-8 h-8 mr-2 bg-gray-100 rounded-full">
+                  <i className="fas fa-check text-gray-500"></i>
+                </span>
+                Purchased Items ({purchasedItems.length})
+              </h2>
               <button 
-                className="text-gray-500 hover:text-gray-700"
-                onClick={togglePurchasedItems}
-              >
-                <i className={`fas fa-chevron-${isPurchasedCollapsed ? 'down' : 'up'}`}></i>
-              </button>
-              <button 
-                className="text-sm text-gray-500 hover:text-[#E74C3C]"
+                className="text-sm px-3 py-1 bg-red-50 text-[#E74C3C] rounded-md hover:bg-red-100 transition"
                 onClick={clearPurchased}
               >
-                Clear purchased
+                <i className="fas fa-trash-alt mr-1"></i> Clear All Purchased
               </button>
             </div>
+            <p className="text-sm text-gray-500 mt-2">
+              Purchased items are kept in their respective categories with a strikethrough. You can uncheck any purchased item to restore it.
+            </p>
           </div>
-
-          {!isPurchasedCollapsed && (
-            <div className="space-y-3">
-              {purchasedItems.map(item => (
-                <ShoppingItem key={item.id} item={item} />
-              ))}
-            </div>
-          )}
         </div>
       )}
 

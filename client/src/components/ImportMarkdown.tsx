@@ -11,7 +11,7 @@ const ImportMarkdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [markdownContent, setMarkdownContent] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const { addItems } = useGrocery();
+  const { addItems, setActiveTab } = useGrocery();
   const { toast } = useToast();
 
   const handleImport = () => {
@@ -33,6 +33,9 @@ const ImportMarkdown: React.FC = () => {
       // Add all items to the favorites list at once
       addItems(itemsToAdd);
       
+      // Set active tab to 'favorites'
+      setActiveTab('favorites');
+
       toast({
         title: "Import Successful",
         description: `Added ${items.length} items to your favorites.`,

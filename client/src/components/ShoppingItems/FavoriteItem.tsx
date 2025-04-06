@@ -9,10 +9,12 @@ interface FavoriteItemProps {
 }
 
 const FavoriteItem: React.FC<FavoriteItemProps> = ({ item }) => {
-  const { addToCart, setEditingItem, setIsModalOpen } = useGrocery();
+  const { addToCart, setEditingItem, setIsModalOpen, setActiveTab } = useGrocery();
 
   const handleAddToToBuy = () => {
     addToCart(item.id);
+    // Ensure we stay on favorites tab
+    setActiveTab('favorites');
   };
 
   const handleEdit = () => {

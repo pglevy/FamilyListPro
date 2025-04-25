@@ -1,7 +1,9 @@
+
 import { useState, useEffect } from 'react';
+import * as LZString from 'lz-string';
 
 /**
- * A custom hook to sync state with URL hash
+ * A custom hook to sync state with URL hash using compression
  * @param initialState The initial state
  * @param key The key to store the state under in the URL hash
  * @returns [state, setState]
@@ -14,10 +16,11 @@ function useHashState<T>(initialState: T, key: string): [T, (value: T) => void] 
     try {
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
-      const stateString = params.get(key);
+      const compressedState = params.get(key);
       
-      if (stateString) {
-        return JSON.parse(decodeURIComponent(stateString)) as T;
+      if (compressedState) {
+        const decompressed = LZString.decompressFromEncodedURIComponent(compressedState);
+        return JSON.parse(decompressed) as T;
       }
     } catch (error) {
       console.error('Error parsing hash state:', error);
@@ -34,13 +37,9 @@ function useHashState<T>(initialState: T, key: string): [T, (value: T) => void] 
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       
-      // Preserve the existing tab parameter
-      // Don't set default here, just preserve what's already there
-      
-      // Update the hash state
-      params.set(key, encodeURIComponent(JSON.stringify(state)));
-      
-      // Don't modify the tab parameter here, to avoid conflicts
+      // Compress and update the hash state
+      const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(state));
+      params.set(key, compressed);
       
       window.location.hash = params.toString();
     } catch (error) {

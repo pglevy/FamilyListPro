@@ -19,7 +19,7 @@ function useHashState<T>(initialState: T, key: string): [T, (value: T) => void] 
       const compressedState = params.get(key);
       
       if (compressedState) {
-        const decompressed = LZString.decompressFromEncodedURIComponent(compressedState);
+        const decompressed = LZString.decompressFromBase64(compressedState.replace(/-/g, '+').replace(/_/g, '/'));
         return JSON.parse(decompressed) as T;
       }
     } catch (error) {
@@ -37,8 +37,11 @@ function useHashState<T>(initialState: T, key: string): [T, (value: T) => void] 
       const hash = window.location.hash.substring(1);
       const params = new URLSearchParams(hash);
       
-      // Compress and update the hash state
-      const compressed = LZString.compressToEncodedURIComponent(JSON.stringify(state));
+      // Compress and update the hash state using base64url encoding
+      const compressed = LZString.compressToBase64(JSON.stringify(state))
+        .replace(/\+/g, '-')
+        .replace(/\//g, '_')
+        .replace(/=+$/, '');
       params.set(key, compressed);
       
       window.location.hash = params.toString();

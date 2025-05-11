@@ -39,14 +39,14 @@ const Header: React.FC = () => {
         </h1>
         <div className="flex space-x-2">
           <button
-            className="p-2 rounded-full hover:bg-gray-100"
+            className="p-2 min-w-10 max-h-10 rounded-full hover:bg-gray-100"
             aria-label="Share list"
             onClick={handleShare}
           >
             <i className="fas fa-share-alt text-[#34495E]"></i>
           </button>
           <button
-            className="p-2 rounded-full hover:bg-gray-100"
+            className="p-2 min-w-10 max-h-10 rounded-full hover:bg-gray-100"
             aria-label="Settings"
             onClick={handleSettings}
           >

@@ -47,14 +47,18 @@ const ListControls: React.FC = () => {
           <option value={CATEGORIES.HOUSEHOLD}>Household</option>
         </select>
         
-        {showImportButton && <ImportMarkdown />}
+        
         
         <button 
           className="px-3 py-2 bg-[#2ECC71] text-white rounded-lg font-medium hover:bg-opacity-90 transition"
           onClick={() => setIsModalOpen(true)}
         >
-          <i className="fas fa-plus mr-1"></i> Add Item
+          <i className="fas fa-plus xs:mr-1"></i>
+          <span className="hidden xs:inline">Add</span>
+          <span className="sr-only">Add Item</span>
         </button>
+        {showImportButton && <ImportMarkdown />}
+        
       </div>
     </div>
   );

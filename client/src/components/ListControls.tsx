@@ -53,7 +53,9 @@ const ListControls: React.FC = () => {
           className="px-3 py-2 bg-[#2ECC71] text-white rounded-lg font-medium hover:bg-opacity-90 transition"
           onClick={() => setIsModalOpen(true)}
         >
-          <i className="fas fa-plus mr-1"></i> Add
+          <i className="fas fa-plus sm:mr-1"></i>
+          <span className="hidden sm:inline">Add</span>
+          <span className="sr-only">Add Item</span>
         </button>
         {showImportButton && <ImportMarkdown />}
         

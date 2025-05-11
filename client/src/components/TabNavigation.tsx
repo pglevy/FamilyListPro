@@ -25,8 +25,8 @@ const TabNavigation: React.FC = () => {
               handleTabClick('tobuy');
             }}
           >
-            <i className="fas fa-shopping-cart sm:mr-2"></i>
-            <span className="hidden sm:inline">To Buy</span>
+            <i className="fas fa-shopping-cart xs:mr-2"></i>
+            <span className="hidden xs:inline">To Buy</span>
             <span className="sr-only">To Buy List</span>
           </a>
         </li>
@@ -43,8 +43,8 @@ const TabNavigation: React.FC = () => {
               handleTabClick('favorites');
             }}
           >
-            <i className="fas fa-star sm:mr-2"></i>
-            <span className="hidden sm:inline">Favorites</span>
+            <i className="fas fa-star xs:mr-2"></i>
+            <span className="hidden xs:inline">Favorites</span>
             <span className="sr-only">Favorites List</span>
           </a>
         </li>
@@ -61,8 +61,8 @@ const TabNavigation: React.FC = () => {
               handleTabClick('neverbuy');
             }}
           >
-            <i className="fas fa-ban sm:mr-2"></i>
-            <span className="hidden sm:inline">Never Buy</span>
+            <i className="fas fa-ban xs:mr-2"></i>
+            <span className="hidden xs:inline">Never Buy</span>
             <span className="sr-only">Never Buy List</span>
           </a>
         </li>

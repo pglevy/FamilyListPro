@@ -236,7 +236,9 @@ const ImportMarkdown: React.FC = () => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)} variant="outline" className="">
-        <i className="fas fa-file-import mr-1 font-medium"></i> Import
+        <i className="fas fa-file-import xs:mr-1 font-medium"></i>
+        <span className="hidden xs:inline">Import</span>
+        <span className="sr-only">Import from Markdown</span>
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>

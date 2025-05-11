@@ -25,13 +25,18 @@ const FavoritesList: React.FC = () => {
 
         {/* Empty state */}
         {favoriteItems.length === 0 && (
-          <div className="flex flex-col items-center justify-center py-8">
-            <i className="fas fa-star text-gray-300 text-4xl mb-4"></i>
-            <p className="text-gray-500 text-lg">You don't have any favorites yet</p>
-            <p className="text-gray-400 text-sm mt-2">
-              Add items to your favorites for quick access
-            </p>
-          </div>
+          <>
+            <div className="flex flex-col items-center justify-center py-8">
+              <i className="fas fa-star text-gray-300 text-4xl mb-4"></i>
+              <p className="text-gray-500 text-lg">You don't have any favorites yet</p>
+              <p className="text-gray-400 text-sm mt-2">
+                Add items to your favorites for quick access
+              </p>
+            </div>
+            <div className="flex justify-center mt-4">
+              <ImportMarkdown />
+            </div>
+          </>
         )}
       </div>
     </div>

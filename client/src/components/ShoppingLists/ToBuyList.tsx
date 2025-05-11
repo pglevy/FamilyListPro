@@ -53,8 +53,24 @@ const ToBuyList: React.FC = () => {
         <div className="mb-6" key={category}>
           <div className="flex items-center justify-between mb-3 px-2">
             <h2 className="text-lg font-semibold text-[#34495E] flex items-center">
-              <span className={`inline-flex items-center justify-center w-8 h-8 mr-2 bg-${CATEGORY_ICONS[category as Category].color}-100 rounded-full`}>
-                <i className={`fas fa-${CATEGORY_ICONS[category as Category].icon} text-${CATEGORY_ICONS[category as Category].color}-600`}></i>
+              <span className={`inline-flex items-center justify-center w-8 h-8 mr-2 ${
+                category === 'produce' ? 'bg-green-100' :
+                category === 'dairy' ? 'bg-blue-100' :
+                category === 'meat' ? 'bg-red-100' :
+                category === 'bakery' ? 'bg-yellow-100' :
+                category === 'frozen' ? 'bg-blue-100' :
+                category === 'pantry' ? 'bg-yellow-100' :
+                'bg-purple-100'
+              } rounded-full`}>
+                <i className={`fas fa-${CATEGORY_ICONS[category as Category].icon} ${
+                  category === 'produce' ? 'text-green-600' :
+                  category === 'dairy' ? 'text-blue-600' :
+                  category === 'meat' ? 'text-red-600' :
+                  category === 'bakery' ? 'text-yellow-600' :
+                  category === 'frozen' ? 'text-blue-600' :
+                  category === 'pantry' ? 'text-yellow-600' :
+                  'text-purple-600'
+                }`}></i>
               </span>
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </h2>

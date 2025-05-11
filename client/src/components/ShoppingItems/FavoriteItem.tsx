@@ -37,7 +37,7 @@ const FavoriteItem: React.FC<FavoriteItemProps> = ({ item }) => {
     <div className="bg-white rounded-xl shadow-sm p-4">
       <div className="flex justify-between items-start mb-3">
         <div className="flex items-center">
-          <span className={`inline-flex items-center justify-center w-8 h-8 mr-2 bg-${categoryIcon.color}-100 rounded-full`}>
+          <span className={`inline-flex items-center justify-center min-w-8 w-8 h-8 max-h-8 mr-2 bg-${categoryIcon.color}-100 rounded-full`}>
             <i className={`fas fa-${categoryIcon.icon} text-${categoryIcon.color}-600`}></i>
           </span>
           <h3 className="font-medium">{item.name}</h3>

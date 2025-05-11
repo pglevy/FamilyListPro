@@ -53,7 +53,7 @@ const ToBuyList: React.FC = () => {
         <div className="mb-6" key={category}>
           <div className="flex items-center justify-between mb-3 px-2">
             <h2 className="text-lg font-semibold text-[#34495E] flex items-center">
-              <span className={`inline-flex items-center justify-center w-8 h-8 mr-2 ${
+              <span className={`inline-flex items-center justify-center min-w-8 w-8 h-8 max-h-8 mr-2 ${
                 category === 'produce' ? 'bg-green-100' :
                 category === 'dairy' ? 'bg-blue-100' :
                 category === 'meat' ? 'bg-red-100' :

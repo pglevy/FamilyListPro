@@ -38,6 +38,14 @@ const Header: React.FC = () => {
           <i className="fas fa-bag-shopping xs:mr-2"></i> Gro-Shreeze
         </h1>
         <div className="flex space-x-2">
+          <a
+            href="https://pglevy.github.io/FamilyListPro/"
+            className="p-2 min-w-10 max-h-10 rounded-full hover:bg-gray-100 flex items-center justify-center"
+            aria-label="Reset to clean URL"
+            title="Reset to clean URL"
+          >
+            <i className="fas fa-home text-[#34495E]"></i>
+          </a>
           <button
             className="p-2 min-w-10 max-h-10 rounded-full hover:bg-gray-100"
             aria-label="Share list"

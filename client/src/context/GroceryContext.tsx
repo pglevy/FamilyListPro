@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useState, useMemo, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useMemo, ReactNode, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import useHashState from '@/hooks/useHashState';
+import { useShareableState, parseSharedItems } from '@/hooks/useShareableState';
 import { GroceryItem, GroceryList } from '@/lib/types';
 import { CATEGORIES, LIST_TYPES } from '@/lib/constants';
 import { Category, ListType } from '@shared/schema';
@@ -40,6 +41,30 @@ export const GroceryProvider: React.FC<GroceryProviderProps> = ({ children }) =>
   const [activeTab, setActiveTabInternal] = useState<'tobuy' | 'favorites' | 'neverbuy'>('tobuy');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<GroceryItem | null>(null);
+  
+  // Use the new shareable state hook for To Buy items only
+  useShareableState(items);
+  
+  // Check for shared items on initialization and import them
+  useEffect(() => {
+    const sharedItems = parseSharedItems();
+    if (sharedItems.length > 0) {
+      // Add shared items that don't already exist (prevent duplicates)
+      const existingNames = new Set(items.map(item => item.name.toLowerCase()));
+      const newSharedItems = sharedItems.filter(
+        sharedItem => !existingNames.has(sharedItem.name.toLowerCase())
+      );
+      
+      if (newSharedItems.length > 0) {
+        setItems([...items, ...newSharedItems]);
+        
+        // Switch to To Buy tab to show the imported items
+        setActiveTabInternal('tobuy');
+        
+        console.log(`Imported ${newSharedItems.length} shared items to your To Buy list`);
+      }
+    }
+  }, []); // Only run on mount
   
   // Create a wrapper for setActiveTab that updates the URL hash
   const setActiveTab = (tab: 'tobuy' | 'favorites' | 'neverbuy') => {

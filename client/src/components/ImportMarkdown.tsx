@@ -25,7 +25,8 @@ const ImportMarkdown: React.FC = () => {
     const loadDefaultContent = async () => {
       try {
         setIsLoadingDefault(true);
-        const response = await fetch('/groceries.md');
+        // Use relative path that respects Vite's base URL configuration
+        const response = await fetch('./groceries.md');
         if (response.ok) {
           const content = await response.text();
           setDefaultContent(content);

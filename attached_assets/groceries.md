@@ -34,7 +34,7 @@
 - Regular tortilla wrap (flour)
 - Black beans
 - Olive or avocado oil
-- Peanut butter smooth crazy Richard’s (only peanuts as ingredient)
+- Crazy Richard’s smooth peanut butter 
 - Almond butter
 - Cocoa powder
 - Rice (brown, white, microwaveable)
@@ -44,8 +44,9 @@
 - Chicken sauce
 - Rolled oats
 - White bread
-- Cheez-its, goldfish, cheese straws, potato chips (2 kinds), popcorn, tortilla chips, ritz crackers, rice cakes, crackers, almonds (lightly salted, not honey roasted), peanuts (lightly salted), gluten-free crackers
-- Whole plain almonds 
+- Chips (2 potato and 1 corn)
+- Crackers
+- Nuts 
 - Low sugar fruit snacks
 - Cereal, 2 boxes (Crispix, Cinnamon Chex, Pops, Honey Comb, Corn Flakes, change it up)
 - KIND soft baked granola (dark chocolate, dark chocolate peanut butter)
@@ -68,18 +69,17 @@
 
 # Dairy
 
-- Dairy
 - Eggs
 - Butter, unsalted 
 - Cream cheese (regular, chive & onion)
-- Yogurt, oikos vanilla zero sugar, 4 pack
+- Yogurt, Oikos vanilla zero sugar, 4 pack
 - Diet soda (big coke ZERO)
-- Club soda (blue schweppes, or food lion or some other seltzer if they're out)
-- Juice (Tropical Punch)
+- Club soda (blue schweppes)
+- Tonic water
+- Juice
 - 2% milk
 - Oat milk (barista, all the way to the right)
 - Lemonade
-- Diet arizona green tea or half and half
 - Almond milk
 
 # Frozen
